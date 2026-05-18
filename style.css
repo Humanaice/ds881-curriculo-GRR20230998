@@ -27,8 +27,7 @@ body {
   margin: 0;
   font-family: "Manrope", system-ui, sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(
+  background: radial-gradient(
       circle at top left,
       rgba(47, 111, 235, 0.08),
       transparent 28%
