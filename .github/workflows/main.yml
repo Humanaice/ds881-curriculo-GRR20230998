@@ -1,0 +1,69 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint (Prettier)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prettier check (HTML/CSS/MD)
+        run: |
+          npx --yes prettier@3.3.3 --check "**/*.{html,css,md,yml,yaml}" --ignore-path .gitignore
+
+  build:
+    name: Build (static)
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create dist folder
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='dist' \
+            --exclude='README.md' \
+            --exclude='Dockerfile' \
+            --exclude='docker-compose.yml' \
+            --exclude='.dockerignore' \
+            ./ dist/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy (GitHub Pages)
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: [build]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
