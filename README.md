@@ -13,7 +13,7 @@ Para iniciar o seu trabalho, siga estes passos:
 
 ---
 
-## 1. Objetivo
+## 1. Objetivos
 
 Desenvolver e publicar um currículo profissional ou portfólio pessoal utilizando o GitHub Pages. O projeto deve demonstrar o domínio de ferramentas de conteinerização, automação de pipeline CI/CD e governança de código via fluxos de trabalho estruturados, mesmo em um ambiente de desenvolvimento individual.
 
