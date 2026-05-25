@@ -13,7 +13,7 @@ Para iniciar o seu trabalho, siga estes passos:
 
 ---
 
-## 1. Objetivo
+## 1. Objetivos
 
 Desenvolver e publicar um currículo profissional ou portfólio pessoal utilizando o GitHub Pages. O projeto deve demonstrar o domínio de ferramentas de conteinerização, automação de pipeline CI/CD e governança de código via fluxos de trabalho estruturados, mesmo em um ambiente de desenvolvimento individual.
 
@@ -52,11 +52,39 @@ Implementação de um workflow automatizado (`.github/workflows/main.yml`) conte
 
 ## 3. Documentação
 
-O arquivo `README.md` deve conter:
+### 3.1. Link Público do Currículo
 
-1.  Link público do currículo em produção.
-2.  Instruções detalhadas para execução do ambiente local via Docker.
-3.  Prints ou descrição da configuração de proteção da branch `main` aplicada no GitHub.
+O currículo está disponível publicamente no GitHub Pages através do seguinte link: **[https://humanaice.github.io/ds881-curriculo-GRR20230998/](https://humanaice.github.io/ds881-curriculo-GRR20230998/)**
+
+### 3.2. Execução do Ambiente Local com Docker
+
+Para configurar e executar o ambiente de desenvolvimento localmente usando Docker, siga os passos abaixo:
+
+1.  **Pré-requisitos:** Certifique-se de ter o Docker e Docker Compose instalados em sua máquina.
+2.  **Navegue até o diretório do projeto:**
+    ```bash
+    cd ds881-curriculo-GRR20230998
+    ```
+3.  **Inicie o ambiente Docker Compose:**
+    ```bash
+    docker compose up --build
+    ```
+    Este comando irá construir a imagem Docker (se necessário) e iniciar o contêiner do servidor de desenvolvimento.
+4.  **Acesse o currículo:** Após a inicialização, o site estará acessível no seu navegador através da URL: `http://localhost:8080`.
+    Qualquer alteração nos arquivos `.html` ou `.css` será automaticamente refletida no navegador devido ao mapeamento de volumes (hot reload).
+
+### 3.3. Proteção da Branch `main`
+
+A branch `main` está configurada com proteção para garantir a governança do código. As seguintes regras foram aplicadas:
+
+- **Require a pull request before merging:** Todas as alterações devem ser feitas via Pull Request.
+- **Require status checks to pass before merging:** O merge só é permitido se o pipeline de CI/CD estiver com status "verde".
+
+Abaixo estão os prints da configuração de proteção da branch `main` no GitHub:
+
+<img width="1717" height="2135" alt="Image" src="https://github.com/user-attachments/assets/8200b204-cb6c-4d22-b175-8a10b9c48389" />
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/1480d4db-c770-460b-950f-52a49abc0f83" />
 
 ## 4. Critérios de Avaliação
 
@@ -75,5 +103,3 @@ O arquivo `README.md` deve conter:
 A entrega deve ser realizada através do formulário disponibilizado pelo professor, contendo o link do seu repositório público.
 
 ---
-
-> **Atenção:** Não esqueça de anexar no final deste README ou na documentação do projeto um print comprovando que a regra de **Branch Protection** da `main` foi configurada no GitHub.
